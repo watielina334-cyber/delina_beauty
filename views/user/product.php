@@ -1,6 +1,6 @@
 <?php
 $baseURL = "http://localhost/Glad2Glow/public/";
-require_once '../data/product_data.php';
+require_once 'data/product_data.php';
 include '../views/layout/header.php';
 ?>
 

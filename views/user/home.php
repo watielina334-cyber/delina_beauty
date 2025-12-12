@@ -197,7 +197,7 @@ $baseURL = "http://localhost/Glad2Glow/public/";
                 <h3 class="text-lg font-semibold mb-3 text-gray-800">Menu</h3>
                 <ul class="space-y-2 text-sm">
                     <li><a href="#" class="hover:text-pink-500">Home</a></li>
-                    <li><a href="#" class="hover:text-pink-500">Produk</a></li>
+                    <li><a href="../views/user/product.php" class="hover:text-pink-500">Produk</a></li>
                     <li><a href="#" class="hover:text-pink-500">Tentang Kami</a></li>
                     <li><a href="#" class="hover:text-pink-500">Kontak</a></li>
                 </ul>
@@ -231,16 +231,16 @@ $baseURL = "http://localhost/Glad2Glow/public/";
                     <li><a href="#" class="hover:text-indigo-600">Carrier</a></li>
                 </ul>
             </div>
-        </div>
-
-        <!-- Legal -->
-        <div>
-            <h3 class="text-lg font-semibold mb-3 text-gray-800">Legal</h3>
-            <ul class="text-sm space-y-2">
-                <li><a href="#" class="hover:text-indigo-600">Terms of service</a></li>
-                <li><a href="#" class="hover:text-indigo-600">Privacy policy</a></li>
-                <li><a href="#" class="hover:text-indigo-600">License</a></li>
-            </ul>
+            
+            <!-- Legal -->
+            <div>
+                <h3 class="text-lg font-semibold mb-3 text-gray-800">Legal</h3>
+                <ul class="text-sm space-y-2">
+                    <li><a href="#" class="hover:text-indigo-600">Terms of service</a></li>
+                    <li><a href="#" class="hover:text-indigo-600">Privacy policy</a></li>
+                    <li><a href="#" class="hover:text-indigo-600">License</a></li>
+                </ul>
+            </div>
         </div>
 
         <!-- Bottom -->
