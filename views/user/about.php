@@ -8,7 +8,7 @@
   </head>
   <body>
     
-    <?php include '../views/layout/header.php'; ?>
+  <?php include '../views/layout/header.php'; ?>
 
   <style>
     /* Custom utilities for pastel palette and small tweaks */

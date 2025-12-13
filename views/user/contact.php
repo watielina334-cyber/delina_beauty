@@ -61,18 +61,11 @@
                 </div>
 
                 <!-- WHATSAPP BUTTON -->
-                <a href="https://wa.me/6281234567890" target="_blank" class="block">
+                <a href="https://wa.me/6282378559918" target="_blank" class="block">
                     <div class="bg-pink-500 hover:bg-pink-600 text-white p-6 rounded-2xl shadow-lg text-center font-semibold text-lg">
                         Chat via WhatsApp 📢
                     </div>
                 </a>
-
-                <!-- MAP / LOCATION -->
-                <div class="bg-white p-4 rounded-2xl shadow-lg">
-                    <div class="w-full h-52 bg-pink-200 flex items-center justify-center rounded-lg text-gray-600">
-                        Map Location (Optional)
-                    </div>
-                </div>
 
             </div>
 

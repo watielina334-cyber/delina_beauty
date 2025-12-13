@@ -1,7 +1,10 @@
 <?php
 $baseURL = "http://localhost/Glad2Glow/public/";
-require_once 'data/product_data.php';
+require_once '../data/product_data.php';
 include '../views/layout/header.php';
+require '../config/database.php';
+$query = $conn -> query ("SELECT * FROM products ORDER BY price ASC");
+$result = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +19,6 @@ include '../views/layout/header.php';
 </head>
 
 <body class="bg-gray-100 p-6">
-
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <?php foreach ($products as $p): ?>
 
