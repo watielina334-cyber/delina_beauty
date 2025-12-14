@@ -92,5 +92,15 @@ if(!$products) {
             </a>
           </div>
     </div>
+
+    <!-- form pembelian -->
+    <form method= "POST" action="index.php?page=cart">
+        <input type="hidden" name="id" value="<?= $producst['id'] ?>">
+        <label>Jumlah:</label>
+        <input type="number" name="qty" value="1" min="1" class="border p-2 w-20">
+        <button type="submit" name="add_to_cart" style="display: block; margin-top: 15px; padding:12px; background:#ff4b8a; color:white; border-radius: 8px;">
+            🛒Tambah ke Keranjang
+        </button>
+    </form>
 </body>
 </html>
