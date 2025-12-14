@@ -32,7 +32,7 @@ $baseURL = "http://localhost/Glad2Glow/public/";
     <div class="hidden lg:flex lg:space-x-20">
       <a href="<?= $baseURL ?>index.php?page=home" class="text-gray-900 hover:text-pink-500 font-medium">Home</a>
       <a href="<?= $baseURL ?>index.php?page=about" class="text-gray-900 hover:text-pink-500 font-medium">About</a>
-      <a href="<?= $baseURL ?>index.php?page=product" class="text-gray-900 hover:text-pink-500 font-medium">Product</a>
+      <a href="<?= $baseURL ?>index.php?page=products" class="text-gray-900 hover:text-pink-500 font-medium">Product</a>
       <a href="<?= $baseURL ?>index.php?page=contact" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
     </div>
 
@@ -67,7 +67,7 @@ $baseURL = "http://localhost/Glad2Glow/public/";
   <div class="space-y-4">
     <a href="<?= $baseURL ?>index.php?page=home" class="block text-lg font-medium">Home</a>
     <a href="<?= $baseURL ?>index.php?page=about" class="block text-lg font-medium">About</a>
-    <a href="<?= $baseURL ?>index.php?page=product" class="block text-lg font-medium">Product</a>
+    <a href="<?= $baseURL ?>index.php?page=products" class="block text-lg font-medium">Product</a>
     <a href="<?= $baseURL ?>index.php?page=contact" class="block text-lg font-medium">Contact</a>
   </div>
 
@@ -86,7 +86,7 @@ $baseURL = "http://localhost/Glad2Glow/public/";
     <p class="mt-4 text-lg md:text-xl">Wujudkan Kulit Cerah Impianmu</p>
 
     <div class="mt-8">
-      <a href="<?= $baseURL ?>index.php?page=product" class="px-6 py-3 bg-white text-gray-900 rounded-full font-semibold shadow">Temukan Sekarang →</a>
+      <a href="<?= $baseURL ?>index.php?page=products" class="px-6 py-3 bg-white text-gray-900 rounded-full font-semibold shadow">Temukan Sekarang →</a>
     </div>
   </div>
 </div>
@@ -123,9 +123,9 @@ $baseURL = "http://localhost/Glad2Glow/public/";
                     <p class="mt-1 text-lg font-medium text-gray-900">Rp 40.120</p>
                 </a>
                 <a href="#" class="group">
-                    <img src="../public/images/produk6.jpeg" alt=" " class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
-                    <h3 class="mt-4 text-sm text-gray-700">Glad2Glow Double Briht Day Cream Moisturizer Cream Pemutih Wajah</h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">Rp 60.560</p>
+                    <img src="../public/images/peeling.jpeg" alt=" " class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+                    <h3 class="mt-4 text-sm text-gray-700">Glad2Glow Peeling Solution AHA BHA PHA Intensive</h3>
+                    <p class="mt-1 text-lg font-medium text-gray-900">Rp 40.560</p>
                 </a>
                 </a>
             </div>
@@ -197,7 +197,7 @@ $baseURL = "http://localhost/Glad2Glow/public/";
                 <h3 class="text-lg font-semibold mb-3 text-gray-800">Menu</h3>
                 <ul class="space-y-2 text-sm">
                     <li><a href="<?= $baseURL ?>index.php?page=home" class="hover:text-pink-500">Home</a></li>
-                    <li><a href="<?= $baseURL ?>index.php?page=product" class="hover:text-pink-500">Produk</a></li>
+                    <li><a href="<?= $baseURL ?>index.php?page=products" class="hover:text-pink-500">Produk</a></li>
                 </ul>
             </div>
 

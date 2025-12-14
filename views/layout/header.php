@@ -1,5 +1,4 @@
 <?php 
-session_start();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -25,7 +24,7 @@ $baseURL= "/Glad2Glow/public/";
             <nav class="hidden md:flex items-center gap-6 text-gray-700">
                 <a href="<?= $baseURL ?>index.php?page=home" class="hover:text-pink-500"> Home </a>
                 <a href="<?= $baseURL ?>index.php?page=about" class="hover:text-pink-500"> About </a>
-                <a href="<?= $baseURL ?>index.php?page=product" class="hover:text-pink-500"> Product </a>
+                <a href="<?= $baseURL ?>index.php?page=products" class="hover:text-pink-500"> Product </a>
                 <a href="<?= $baseURL ?>index.php?page=contact" class="hover:text-pink-500"> Contact </a>
 
 
@@ -36,6 +35,7 @@ $baseURL= "/Glad2Glow/public/";
                 <?php else: ?>
                     <a href="../views/auth/login.php">Login</a>
                     <a href="../views/auth/register.php">Register</a>
+                <?php endif ;?>
             </nav>
             
 
