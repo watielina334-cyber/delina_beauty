@@ -3,7 +3,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$baseURL = "http://localhost/Glad2Glow/public/";
+$baseURL = "http://localhost/delina_beauty/public/";
 ?>
 
 <!DOCTYPE html>
