@@ -1,41 +1,36 @@
 <?php
 session_start();
-include 'config/database.php'; // koneksi database
+require_once '../../config/database.php';
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+if (isset($_POST['login'])) {
 
-$query = $conn->prepare("SELECT * FROM users WHERE username = ?");
-$query->bind_param("s", $username);
-$query->execute();
-$result = $query->get_result();
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
 
-if ($result->num_rows === 1) {
-    $users = $result->fetch_assoc();
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Cocokkan password
-    if (password_verify($password, $users['password'])) {
+    if ($result->num_rows === 1) {
+        $users = $result->fetch_assoc();
 
-        // Simpan data ke session
-        $_SESSION['users'] = [
-            'id'       => $users['id'],
-            'username' => $users['username'],
-            'role'     => $users['role']
-        ];
+        if (password_verify($password, $users['password'])) {
 
-        // Redirect berdasarkan role
-        if ($users['role'] === 'admin') {
-            header("Location: ../views/user/home.php");
+            $_SESSION['users'] = [
+                'user_id'    => $users['user_id'],
+                'email' => $users['email'],
+                'role'  => $users['role']
+            ];
+
+            // ✅ REDIRECT BENAR
+            header("Location: ../user/home.php");
             exit;
+
         } else {
-            header("Location: user/user_dashboard.php");
-            exit;
+            echo "<script>alert('Password salah');history.back();</script>";
         }
-
     } else {
-        echo "<script>alert('Password salah!'); window.history.back();</script>";
+        echo "<script>alert('Email tidak ditemukan');history.back();</script>";
     }
-} else {
-    echo "<script>alert('Username tidak ditemukan!'); window.history.back();</script>";
 }
-?>

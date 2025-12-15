@@ -1,106 +1,135 @@
-<?php 
-require '../config/database.php';
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$id = $_GET['id'] ?? 0;
+require_once __DIR__ . '/../../config/database.php';
 
-$stmt = $conn->prepare("SELECT * FROM products WHERE id= ?");
-$stmt ->bind_param("i", $id);
+// ambil id produk dari URL
+if (!isset($_GET['id'])) {
+    die("Produk tidak ditemukan");
+}
+
+$id = $_GET['id'];
+
+// ambil data produk
+$stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+$stmt->bind_param("i", $id);
 $stmt->execute();
+$products = $stmt->get_result()->fetch_assoc();
 
-$products = $stmt-> get_result() -> fetch_assoc();
-
-if(!$products) {
-    echo "produk tidak ditemukan";
-    exit;
+if (!$products) {
+    die("Produk tidak ada");
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-           font-family: Arial, Helvetica, sans-serif;
-           background: #f8f8f8;
-           margin: 0;
-           padding: 0; 
-        }
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            display: flex;
-            gap: 45px;
-        }
-        .product-image img{
-            width: 430px;
-            border-radius: 12px;
-            object-fit: cover;
-        }
-        .product-info h1 {
-            margin: 0;
-            font-size: 25px;
-        }
-        .price {
-            margin: 15px 0;
-            font-size: 21px;
-            color: 3ff4b8a;
-            font-weight: bold;
-        }
-        .desc {
-            line-height: 1.7;
-            color: #444;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 12px 21px;
-            background: #ff4b8a;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 10px;
-        }
-        .btn:hover{
-            background: #e63a73;
-        }
-    </style>
+<title><?= $products['name'] ?></title>
+<style>
+body {
+    font-family: Arial;
+    background: #f5f5f5;
+}
+.container {
+    width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+}
+.image img {
+    width: 350px;
+    border-radius: 10px;
+}
+.info h2 {
+    margin: 0;
+}
+.price {
+    color: #e53935;
+    font-size: 22px;
+    margin: 15px 0;
+}
+.desc {
+    margin: 15px 0;
+    color: #555;
+}
+.qty input {
+    width: 60px;
+    padding: 5px;
+}
+.actions {
+    margin-top: 20px;
+}
+.actions button {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+.cart {
+    background: #ff9800;
+    color: white;
+}
+.buy {
+    background: #e53935;
+    color: white;
+}
+</style>
 </head>
-<body>
-    <div class="container">
-        <!-- kiri : gambar -->
-         <div class="product-image">
-            <img src="../public/images/<?= $products['image'] ?>" alt="">
-         </div>
-        
-         <!-- kanan : info -->
-          <div class="product-info">
-            <h1><?= $products['name'] ?></h1>
-            <div class="price">
-                Rp <?= number_format($products['price']) ?>
-            </div>
-            <div class="desc">
-                <?= nl2br($products['description']) ?>
-            </div>
 
-            <a href="index.php?page=products" class="btn">
-                🔙Kembali ke Produk
-            </a>
-          </div>
+<body>
+
+<div class="container">
+
+    <!-- GAMBAR -->
+    <div class="image">
+        <img src="../../public/images/<?= $products['image'] ?>" alt="">
+        <div class="tumbnail">
+            <img src="../../public/images/<?= $products['image'] ?>" alt="">
+            <img src="../../public/images/<?= $products['image'] ?>" alt="">
+            <img src="../../public/images/<?= $products['image'] ?>" alt="">
+        </div>
     </div>
 
-    <!-- form pembelian -->
-    <form method= "POST" action="index.php?page=cart">
-        <input type="hidden" name="id" value="<?= $producst['id'] ?>">
-        <label>Jumlah:</label>
-        <input type="number" name="qty" value="1" min="1" class="border p-2 w-20">
-        <button type="submit" name="add_to_cart" style="display: block; margin-top: 15px; padding:12px; background:#ff4b8a; color:white; border-radius: 8px;">
-            🛒Tambah ke Keranjang
-        </button>
-    </form>
+    <!-- INFO produk -->
+    <div class="info">
+        <h2><?= $products['name'] ?></h2>
+        
+        <div class="price">
+            Rp <?= number_format($products['price']) ?>
+        </div>
+        <div>
+            Stok Tersedia: <?= $products['stock'] ?>
+        </div>
+        <div class="desc">
+            <?= nl2br($products['description']) ?>
+        </div>
+
+        <!-- FORM -->
+        <form action="../cart/cart_add.php" method="POST">
+            <input type="hidden" name="id" value="<?= $products['id'] ?>">
+
+            <div class="qty">
+                Jumlah :
+                <input type="number" name="qty" value="1" min="1" max="<?= $products['stock'] ?>">
+            </div>
+
+            <div class="actions">
+                <button type="submit" name="action" value="cart" class="cart">
+                    🛒 Tambah ke Keranjang
+                </button>
+
+                <button type="submit" name="action" value="buy" class="buy">
+                    ⚡ Beli Sekarang
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
 </body>
 </html>

@@ -1,65 +1,67 @@
-<?php 
+<?php
+session_start();
+require '../../config/database.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$user_id = $_SESSION['users']['id'];
 
-// jika cart belum ada, buat array kosong
-if (!isset ($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
+$sql = "
+SELECT 
+    c.quantity,
+    p.name,
+    p.price,
+    p.image
+FROM cart c
+JOIN products p ON c.product_id = p.id
+WHERE c.user_id = ?
+";
 
-// jika user klik apus item
-if (isset($_GET['remove'])) {
-    $id = $_GET['remove'];
-    unset($_SESSION['cart'][$id]);
-    header("location: index.php?page=cart");
-    exit;
-}
-$cart = $_SESSION['cart'];
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
-<div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-2xl font-bold mb-6">Keranjang Belanja</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Keranjang</title>
+<style>
+body { font-family: Arial; background:#f5f5f5; }
+.cart {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+.item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+img { width: 80px; }
+.price { color:#ff4b8a; font-weight:bold; }
+</style>
+</head>
 
-    <?php if (empty($cart)): ?>
-        <p class="text-gray-600">Keranjang kamu masih kosong.</p>
-    <?php else: ?>
-        <table class="w-full border-collapse">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="p-3 text-left">Produk</th>
-                    <th class="p-3 text-left">Harga</th>
-                    <th class="p-3 text-left">Jumlah</th>
-                    <th class="p-3 text-left">Subtotal</th>
-                    <th class="p-3 text-left">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                $total = 0;
-                foreach ($cart as $key => $item): 
-                    $subtotal = $item['harga'] * $item['qty'];
-                    $total += $subtotal;
-                ?>
-                    <tr class="border-b">
-                        <td class="p-3"><?= $item['nama']; ?></td>
-                        <td class="p-3">Rp <?= number_format($item['harga'], 0, ',', '.'); ?></td>
-                        <td class="p-3"><?= $item['qty']; ?></td>
-                        <td class="p-3">Rp <?= number_format($subtotal, 0, ',', '.'); ?></td>
-                        <td class="p-3">
-                            <a href="index.php?page=cart&remove=<?= $key ?>" 
-                            class="text-red-500 hover:underline">
-                                Hapus
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+<body>
+<div class="cart">
+    <h2>Keranjang Belanja</h2>
 
-        <div class="text-right mt-6 text-xl font-bold">
-            Total: Rp <?= number_format($total, 0, ',', '.'); ?>
+    <?php while($row = $result->fetch_assoc()): ?>
+        <div class="item">
+            <img src="../../public/images/<?= $row['image'] ?>">
+            <div>
+                <b><?= $row['name'] ?></b><br>
+                Qty: <?= $row['quantity'] ?><br>
+                <span class="price">
+                    Rp <?= number_format($row['price'] * $row['quantity'],0,',','.') ?>
+                </span>
+            </div>
         </div>
-    <?php endif; ?>
+    <?php endwhile; ?>
 </div>
+</body>
+</html>

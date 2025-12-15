@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$baseURL= "/Glad2Glow/public/";
+$baseURL= "/delina_beauty/public/";
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +32,6 @@ $baseURL= "/Glad2Glow/public/";
                     <!-- jika sudah login -->
                     <a href="../views/user/cart.php">🛒</a>
                     <a href="#">Logout</a>
-                <?php else: ?>
-                    <a href="../views/auth/login.php">Login</a>
-                    <a href="../views/auth/register.php">Register</a>
                 <?php endif ;?>
             </nav>
             

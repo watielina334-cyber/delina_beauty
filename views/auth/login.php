@@ -28,12 +28,12 @@ button {
 
 <div class="form-box">
     <h3>Login</h3>
-    <form action="views/auth/login_proses.php" method="POST">
-        <input type="text" name="username" placeholder="Username" required>
+    <form action="login_proses.php" method="POST">
+        <input type="email" name="email" placeholder="Email aktif anda" required>
         <input type="password" name="password" placeholder="Password" required>
-        <button>Login</button>
+        <button type="submit" name="login">Login</button>
     </form>
-    <p><a href="views/auth/register.php"></a>Belum Punya Akun? Register</p>
+    <p><a href="register.php"></a>Belum Punya Akun? Register</p>
 </div>
 
 </body>

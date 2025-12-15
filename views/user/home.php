@@ -42,8 +42,9 @@ $baseURL = "http://localhost/delina_beauty/public/";
         <img src="../public/images/cart.png" class="w-6" />
       <?php endif; ?>
 
-      <a href="#"><img src="../public/images/search.png" id="searchToggle" class="w-6 h-6 cursor-pointer"></a>
+      
 
+      <a href="<?= $baseURL ?>index.php?page=register" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Sign In</a>
       <a href="<?= $baseURL ?>index.php?page=login" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Log in</a>
     </div>
 
@@ -53,7 +54,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
         <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
       </svg>
     </button>
-  </nav>
+</nav>
 </header>
 
 <!-- ========== MOBILE MENU (MUNCUL DI LAYAR KECIL) ========== -->

@@ -31,8 +31,6 @@ switch ($page) {
     case 'testimoni':
         require '../views/user/testimoni.php';
         break;
-
-    // auth
     
     case 'login':
         require '../views/auth/login.php';
@@ -45,7 +43,11 @@ switch ($page) {
     case 'cart':
         require '../views/user/cart.php';
         break;
-        
+    
+    case 'user':
+        require '../models/User.php';
+        break;
+
     case 'logout':
         session_destroy();
         header("location: index.php?page=home");

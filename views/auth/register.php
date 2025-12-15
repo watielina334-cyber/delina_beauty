@@ -1,23 +1,39 @@
 <?php
-session_start();
 require '../config/database.php';
 
-if(isset($_POST['register'])){
-    $username = $_POST['username'];
-    $email    = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // hash password
+if (isset($_POST['register'])) {
 
-    $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+    $email = trim($_POST['email']);
+    $name  = trim($_POST['name']);
+    $password = $_POST['password'];
+
+    // 1️⃣ CEK EMAIL SUDAH ADA ATAU BELUM
+    $cek = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $cek->bind_param("s", $email);
+    $cek->execute();
+    $cek->store_result();
+
+    if ($cek->num_rows > 0) {
+        echo "<script>alert('Email sudah terdaftar!');history.back();</script>";
+        exit;
+    }
+
+    // 2️⃣ HASH PASSWORD
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // 3️⃣ INSERT USER BARU
+    $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $username, $email, $password);
+    $stmt->bind_param("sss", $name, $email, $password_hash);
 
-    if($stmt->execute()){
-        echo "<p>Register berhasil! <a href='views/auth/login.php'>Login disini</a></p>";
+    if ($stmt->execute()) {
+        echo "<script>alert('Register berhasil! Silakan menjelajahi website kami');window.location='index.php?page=user';</script>";
     } else {
-        echo "<p>Error: " . $stmt->error . "</p>";
+        echo "Error: " . $stmt->error;
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,8 +51,8 @@ button:hover { background: #45a049; }
 <body>
 <h2 style="text-align:center;">Register</h2>
 <form method="POST" action="">
-    <input type="text" name="username" placeholder="Username" required>
     <input type="email" name="email" placeholder="Email" required>
+    <input type="name" name="name" placeholder="Username" required>
     <input type="password" name="password" placeholder="Password" required>
     <button type="submit" name="register">Register</button>
 </form>
