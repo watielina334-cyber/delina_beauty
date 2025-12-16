@@ -1,36 +1,39 @@
 <?php
-session_start();
-require_once '../../config/database.php';
+include '../config/database.php'; // koneksi database
 
-if (isset($_POST['login'])) {
+$email = trim($_POST['email']);
+$password = trim($_POST['password']);
 
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
-
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows === 1) {
-        $users = $result->fetch_assoc();
-
-        if (password_verify($password, $users['password'])) {
-
-            $_SESSION['users'] = [
-                'user_id'    => $users['user_id'],
-                'email' => $users['email'],
-                'role'  => $users['role']
-            ];
-
-            // ✅ REDIRECT BENAR
-            header("Location: ../user/home.php");
-            exit;
-
-        } else {
-            echo "<script>alert('Password salah');history.back();</script>";
-        }
-    } else {
-        echo "<script>alert('Email tidak ditemukan');history.back();</script>";
-    }
+if (empty($email) || empty($password)) {
+    echo "Email atau password tidak boleh kosong";
+    exit;
 }
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Pastikan hanya 1 user ditemukan
+if ($result->num_rows === 1) {
+    $users = $result->fetch_assoc();
+
+    // Cek password
+    if (password_verify($password, $users['password'])) {
+        // Login berhasil, simpan session
+        $_SESSION['user_id'] = $users['user_id'];
+        $_SESSION['name'] = $users['name'];
+        $_SESSION['role'] = $users['role'];
+
+        // Redirect ke halaman customer
+        header("Location: admin/dashboard.php");
+        exit;
+    } else {
+        echo "Password salah";
+        exit;
+    }
+} else {
+    echo "Email tidak ditemukan";
+    exit;
+}
+?>

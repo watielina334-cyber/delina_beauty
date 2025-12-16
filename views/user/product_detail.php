@@ -18,9 +18,6 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $products = $stmt->get_result()->fetch_assoc();
 
-if (!$products) {
-    die("Produk tidak ada");
-}
 ?>
 
 <!DOCTYPE html>
@@ -32,72 +29,51 @@ body {
     font-family: Arial;
     background: #f5f5f5;
 }
-.container {
-    width: 900px;
+.detail-container {
+    max-width: 1000px;
     margin: 40px auto;
     background: #fff;
     padding: 20px;
     display: flex;
-    gap: 30px;
+    gap: 40px;
+    font-family: Arial, sans-serif;
 }
-.image img {
+.product-image img {
     width: 350px;
     border-radius: 10px;
+    box-shadow: 0 4px 12px rgb(0,0,0,.1);
 }
-.info h2 {
-    margin: 0;
-}
-.price {
-    color: #e53935;
-    font-size: 22px;
-    margin: 15px 0;
-}
-.desc {
-    margin: 15px 0;
-    color: #555;
-}
-.qty input {
-    width: 60px;
-    padding: 5px;
-}
-.actions {
-    margin-top: 20px;
-}
-.actions button {
+.btn-group button {
     padding: 12px 20px;
     border: none;
+    border-radius: 6px;
+    color: #fff;
     cursor: pointer;
-    font-size: 14px;
+}
+.qty {
+    margin-bottom: 10px;
 }
 .cart {
     background: #ff9800;
-    color: white;
 }
 .buy {
     background: #e53935;
-    color: white;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="detail-container">
 
     <!-- GAMBAR -->
-    <div class="image">
-        <img src="../../public/images/<?= $products['image'] ?>" alt="">
-        <div class="tumbnail">
-            <img src="../../public/images/<?= $products['image'] ?>" alt="">
-            <img src="../../public/images/<?= $products['image'] ?>" alt="">
-            <img src="../../public/images/<?= $products['image'] ?>" alt="">
-        </div>
+    <div class="product-image">
+        <img src="../public/images/<?= $products['image'] ?>" alt="">
     </div>
 
     <!-- INFO produk -->
-    <div class="info">
+    <div class="product-info">
         <h2><?= $products['name'] ?></h2>
-        
         <div class="price">
             Rp <?= number_format($products['price']) ?>
         </div>
@@ -109,15 +85,14 @@ body {
         </div>
 
         <!-- FORM -->
-        <form action="../cart/cart_add.php" method="POST">
+        <form action="../../public/index.php?page=cart_add" method="POST">
             <input type="hidden" name="id" value="<?= $products['id'] ?>">
-
             <div class="qty">
-                Jumlah :
+                <label>Jumlah :</label>
                 <input type="number" name="qty" value="1" min="1" max="<?= $products['stock'] ?>">
             </div>
 
-            <div class="actions">
+            <div class="btn-group">
                 <button type="submit" name="action" value="cart" class="cart">
                     🛒 Tambah ke Keranjang
                 </button>

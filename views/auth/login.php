@@ -28,7 +28,7 @@ button {
 
 <div class="form-box">
     <h3>Login</h3>
-    <form action="login_proses.php" method="POST">
+    <form action="index.php?page=login_proses" method="POST">
         <input type="email" name="email" placeholder="Email aktif anda" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit" name="login">Login</button>

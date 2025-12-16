@@ -25,7 +25,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
 
     <!-- ========== LOGO WEBSITE ========== -->
     <a href="#" class="flex items-center">
-      <img src="https://glad2glow.com/cdn/shop/files/logo.png?v=1745724802&width=240" alt="Logo" class="h-8 w-auto">
+      <img src="../public/images/logo_delina.png" alt="Logo" class="h-20 w-auto">
     </a>
 
     <!-- ========== NAVBAR MENU (LARGE SCREEN) ========== -->
@@ -38,12 +38,6 @@ $baseURL = "http://localhost/delina_beauty/public/";
 
     <!-- ========== ICON SEBELAH KANAN (LARGE SCREEN) ========== -->
     <div class="hidden lg:flex items-center space-x-4 -mr-4">
-      <?php if (isset($_SESSION['user'])): ?>
-        <img src="../public/images/cart.png" class="w-6" />
-      <?php endif; ?>
-
-      
-
       <a href="<?= $baseURL ?>index.php?page=register" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Sign In</a>
       <a href="<?= $baseURL ?>index.php?page=login" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Log in</a>
     </div>

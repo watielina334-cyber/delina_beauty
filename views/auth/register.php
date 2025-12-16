@@ -8,7 +8,7 @@ if (isset($_POST['register'])) {
     $password = $_POST['password'];
 
     // 1️⃣ CEK EMAIL SUDAH ADA ATAU BELUM
-    $cek = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $cek = $conn->prepare("SELECT user_id FROM users WHERE email = ?");
     $cek->bind_param("s", $email);
     $cek->execute();
     $cek->store_result();

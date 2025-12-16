@@ -25,7 +25,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
 
     <!-- ========== LOGO WEBSITE ========== -->
     <a href="#" class="flex items-center">
-      <img src="https://glad2glow.com/cdn/shop/files/logo.png?v=1745724802&width=240" alt="Logo" class="h-8 w-auto">
+      <img src="../public/images/logo_delina.png" alt="Logo" class="h-20 w-auto"> 
     </a>
 
     <!-- ========== NAVBAR MENU (LARGE SCREEN) ========== -->
@@ -36,8 +36,8 @@ $baseURL = "http://localhost/delina_beauty/public/";
       <a href="<?= $baseURL ?>index.php?page=contact" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
     </div>
     <div class="hidden lg:flex items-center space-x-4 -mr-4">
-        <a href="#"><img src="../public/images/search.png" alt="" class="text-sm font-semibold text-gray-900 hover:text-pink-500"></a>
-        <a href="<?= $baseURL ?>index.php?page=cart"><img src="../public/images/cart.png" alt="" class="text-sm font-semibold text-gray-900 hover:text-pink-500"></a>
+        <a href="#"><img src="../public/images/search.png" alt="" class="img-fluid" style="width: 30px; height: 30px;""></a>
+        <a href="<?= $baseURL ?>index.php?page=cart"><img src="../public/images/cart.png" alt="" class="img-fluid" style="width: 30px; height: 30px;""></a>
     </div>
 
     <!-- ========== BUTTON MOBILE (HAMBURGER) ========== -->

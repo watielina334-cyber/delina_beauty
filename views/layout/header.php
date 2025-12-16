@@ -18,7 +18,7 @@ $baseURL= "/delina_beauty/public/";
         <div class="max-w-6xl mx-auto flex items-center justify-between px-4">
 
             <!-- logo -->
-            <a href="<?= $baseURL ?>index.php?page=home" class="text-pink-600 font-bold text-xl">Glad2Glow</a>
+            <img src="../public/images/logo_delina.png" alt="Logo" class="h-20 w-auto">
 
             <!-- menu navigasi -->
             <nav class="hidden md:flex items-center gap-6 text-gray-700">

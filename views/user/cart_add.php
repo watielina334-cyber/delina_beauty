@@ -45,10 +45,10 @@ $stmt = $conn->prepare(
 );
 $stmt ->bind_param("ii", $user_id, $id);
 $stmt -> execute();
-$cartResult = $stmt->get_result();
+$cartsResult = $stmt->get_result();
 
-if($cartResult -> num_rows === 1) {
-    $carts = $cartResult -> fetch_assoc();
+if($cartsResult -> num_rows === 1) {
+    $carts = $cartsResult -> fetch_assoc();
     $newQty = $carts['quantity'] + $qty;
 
     if ($newQty > $stock) {
@@ -57,7 +57,7 @@ if($cartResult -> num_rows === 1) {
     }
 
     $stmt = $conn -> prepare(
-        "UPDATE cart SET quantity = ? WHERE user_id = ? and id = ?"
+        "UPDATE carts SET quantity = ? WHERE user_id = ? and id = ?"
     );
     $stmt->bind_param("iii", $newQty, $user_id, $id);
 
@@ -69,7 +69,7 @@ if($cartResult -> num_rows === 1) {
 }
 
 if ($stmt->execute()) {
-    header("location: cart.php");
+    header("location: index.php?page=cart");
     exit;
 } else {
     echo "gagal menambahkan ke keranjang";

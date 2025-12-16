@@ -36,6 +36,10 @@ switch ($page) {
         require '../views/auth/login.php';
         break;
 
+    case 'login_proses':
+        require '../views/auth/login_proses.php';
+        exit;
+
     case 'register':
         require '../views/auth/register.php';
         break;
@@ -43,6 +47,10 @@ switch ($page) {
     case 'cart':
         require '../views/user/cart.php';
         break;
+
+    case 'cart_add':
+        require '../views/user/cart_add.php';
+        exit;
     
     case 'user':
         require '../models/User.php';
