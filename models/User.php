@@ -12,7 +12,9 @@ $baseURL = "http://localhost/delina_beauty/public/";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glad2Glow</title>
+    <link rel="stylesheet" href="style.css"> 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
 </head>
 <body>
 
@@ -36,7 +38,11 @@ $baseURL = "http://localhost/delina_beauty/public/";
       <a href="<?= $baseURL ?>index.php?page=contact" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
     </div>
     <div class="hidden lg:flex items-center space-x-4 -mr-4">
-        <a href="#"><img src="../public/images/search.png" alt="" class="img-fluid" style="width: 30px; height: 30px;""></a>
+        <div class="search-wrapper">
+            <img src="../public/images/search.png" alt="search-icon"></a>
+            <input type="text" id="search-input" placeholder="Cari Produk Favorit mu">
+            <div id="search-result"></div>
+        </div>
         <a href="<?= $baseURL ?>index.php?page=cart"><img src="../public/images/cart.png" alt="" class="img-fluid" style="width: 30px; height: 30px;""></a>
     </div>
 
@@ -65,7 +71,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
   </div>
   <div>
     <a href="#"><img src="../public/images/search.png" alt=""></a>
-    <a href="#"><img src="../public/images/cart.png" alt=""></a>
+    <a href="<?= $baseURL ?>index.php?page=cart"><img src="../public/images/cart.png" alt=""></a>
   </div>
 </div>
 

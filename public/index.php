@@ -5,6 +5,7 @@ session_start();
 $page = $_GET['page'] ?? 'home';
 $kategori_id = $_GET['kategori_id'] ?? '';
 
+
 switch ($page) {
 
     // user pages

@@ -1,0 +1,7 @@
+.search-wrapper {
+    position: relative;
+}
+.search-wrapper input{
+    display: none;
+    position: absolute;
+}

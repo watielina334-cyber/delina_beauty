@@ -1,77 +1,48 @@
 <?php
-session_start();
-require_once '../../config/database.php';
-
-// cek login
-if(!isset($_SESSION['users'])) {
-    header("location: ../auth/login.php");
+// pastikan user login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php?page=login");
     exit;
 }
 
-$user_id = $_SESSION['users']['user_id'];
-$id = (int) $_POST['id'];
-$qty = (int) ($_POST['quantity'] ?? 1);
+$user_id = $_SESSION['user_id'];
+$id = intval($_POST['id'] ?? 0);
+$quantity = intval($_POST['qty'] ?? 1);
+$action = $_POST['action'] ?? '';
 
-// validasi data
-if ($id <= 0 || $qty <= 0) {
-    echo "data tidak valid";
+if (!$id) {
+    echo "Produk tidak valid";
     exit;
 }
 
-// cek produk & stok
-$stmt = $conn -> prepare(
-    "SELECT stock FROM products WHERE id = ?"
-);
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt -> get_result();
+// cek apakah produk sudah ada di cart
+$check = $conn->prepare("SELECT * FROM carts WHERE user_id=? AND id=?");
+$check->bind_param("ii", $user_id, $id);
+$check->execute();
+$res_check = $check->get_result();
 
-if($result ->num_rows === 0) {
-    echo " produk tidak ditemukan";
-    exit;
-}
-
-$products = $result->fetch_assoc();
-$stock = (int) $products['stock'];
-
-if($qty > $stock) {
-    echo "<script>alert('stok tidak ditemukan'); history.back(); </script)";
-    exit;
-}
-
-// cek apakah sudah ada di cart
-$stmt = $conn->prepare(
-    "SELECT quantity FROM carts WHERE user_id = ? AND id = ?"
-);
-$stmt ->bind_param("ii", $user_id, $id);
-$stmt -> execute();
-$cartsResult = $stmt->get_result();
-
-if($cartsResult -> num_rows === 1) {
-    $carts = $cartsResult -> fetch_assoc();
-    $newQty = $carts['quantity'] + $qty;
-
-    if ($newQty > $stock) {
-        echo "<script>alert('jumlah melebihi stok'); history.back();</script>";
-        exit;
-    }
-
-    $stmt = $conn -> prepare(
-        "UPDATE carts SET quantity = ? WHERE user_id = ? and id = ?"
-    );
-    $stmt->bind_param("iii", $newQty, $user_id, $id);
-
-}else {
-    $stmt = $conn->prepare(
-        "INSERT INTO carts(user_id, id, quantity) VALUES (?, ?, ?)"
-    );
-    $stmt->bind_param("iii", $user_id, $id, $qty);
-}
-
-if ($stmt->execute()) {
-    header("location: index.php?page=cart");
-    exit;
+if ($res_check->num_rows > 0) {
+    $row = $res_check->fetch_assoc();
+    $new_qty = $row['quantity'] + $quantity;
+    $update = $conn->prepare("UPDATE carts SET quantity=? WHERE cart_id=?");
+    $update->bind_param("ii", $new_qty, $row['cart_id']);
+    $update->execute();
 } else {
-    echo "gagal menambahkan ke keranjang";
+    $insert = $conn->prepare("INSERT INTO carts(user_id, id, quantity) VALUES(?,?,?)");
+    $insert->bind_param("iii", $user_id, $id, $quantity);
+    $insert->execute();
 }
-?>
+
+// redirect sesuai action
+if ($action === 'cart') {
+    header("Location: index.php?page=cart");
+    exit;
+} elseif ($action === 'buy') {
+    // simpan data buy now di session
+    $_SESSION['buy_now'] = [
+        'id' => $id,
+        'quantity' => $quantity
+    ];
+    header("Location: index.php?page=checkout");
+    exit;
+}
