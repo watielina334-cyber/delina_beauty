@@ -26,7 +26,7 @@ $baseURL= "/delina_beauty/public/";
 
                 <!-- icon kanan -->
             <div class="flex items-center gap-4">
-                <?php if(!isset($_SESSION['users'])): ?>
+                <?php if(!isset($_SESSION['user_id'])): ?>
                     <!--customer belom login  -->
                     <a href="<?= $baseURL ?>index.php?page=login" class="font-semibold">Log In</a>
                     <a href="<?= $baseURL ?>index.php?page=register" class="font-semibold">Sign Up</a>

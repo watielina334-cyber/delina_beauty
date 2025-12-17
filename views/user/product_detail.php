@@ -1,8 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 require_once __DIR__ . '/../../config/database.php';
 
 // ambil id produk dari URL
@@ -85,7 +81,7 @@ body {
         </div>
 
         <!-- FORM -->
-        <form action="../../public/index.php?page=cart_add" method="POST">
+        <form action="index.php?page=cart_add" method="POST">
             <input type="hidden" name="id" value="<?= $products['id'] ?>">
             <div class="qty">
                 <label>Jumlah :</label>

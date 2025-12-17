@@ -31,7 +31,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
       <a href="<?= $baseURL ?>index.php?page=products" class="text-gray-900 hover:text-pink-500 font-medium">Product</a>
       <a href="<?= $baseURL ?>index.php?page=contact_user" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
     </div>
-    <?php if (!isset($_SESSION['users'])): ?>
+    <?php if (!isset($_SESSION['user_id'])): ?>
     <!-- jika customer belom login -->
     <!-- ========== ICON SEBELAH KANAN (LARGE SCREEN) ========== -->
         <div class="hidden lg:flex items-center space-x-4 -mr-4">

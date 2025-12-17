@@ -1,4 +1,5 @@
 <?php
+require '../config/database.php';
 // pastikan user login
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php?page=login");
@@ -10,7 +11,7 @@ $id = intval($_POST['id'] ?? 0);
 $quantity = intval($_POST['qty'] ?? 1);
 $action = $_POST['action'] ?? '';
 
-if (!$id) {
+if ($id<=0) {
     echo "Produk tidak valid";
     exit;
 }
@@ -24,8 +25,8 @@ $res_check = $check->get_result();
 if ($res_check->num_rows > 0) {
     $row = $res_check->fetch_assoc();
     $new_qty = $row['quantity'] + $quantity;
-    $update = $conn->prepare("UPDATE carts SET quantity=? WHERE cart_id=?");
-    $update->bind_param("ii", $new_qty, $row['cart_id']);
+    $update = $conn->prepare("UPDATE carts SET quantity=? WHERE id=?");
+    $update->bind_param("ii", $new_qty, $row['id']);
     $update->execute();
 } else {
     $insert = $conn->prepare("INSERT INTO carts(user_id, id, quantity) VALUES(?,?,?)");
@@ -46,3 +47,4 @@ if ($action === 'cart') {
     header("Location: index.php?page=checkout");
     exit;
 }
+?>

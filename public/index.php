@@ -32,6 +32,7 @@ switch ($page) {
     case 'contact_admin':
         require '../views/user/contact_admin.php';
         break;
+
     case 'testimoni':
         require '../views/user/testimoni.php';
         break;

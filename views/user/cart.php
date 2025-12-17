@@ -1,6 +1,34 @@
 <?php
+require_once '../config/database.php';
 
-$cart = $_SESSION['cart'] ?? [];
+// proteksi login
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php?page=login");
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+
+// ambil cart dari database
+$stmt = $conn->prepare("
+    SELECT 
+        carts.quantity AS qty,
+        products.name,
+        products.price,
+        products.image
+    FROM carts
+    JOIN products ON carts.id = products.id
+    WHERE carts.user_id = ?
+");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$cart = [];
+while ($row = $result->fetch_assoc()) {
+    $cart[] = $row;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -105,7 +133,7 @@ $cart = $_SESSION['cart'] ?? [];
         ?>
         <tr>
             <td class="product">
-                <img src="../assets/img/<?= $item['image']; ?>">
+                <img src="../public/images/<?= $item['image']; ?>">
                 <?= $item['name']; ?>
             </td>
             <td>Rp <?= number_format($item['price']); ?></td>
