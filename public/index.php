@@ -25,10 +25,13 @@ switch ($page) {
         require '../views/user/product_detail.php';
         break;
 
-    case 'contact':
-        require '../views/user/contact.php';
+    case 'contact_user':
+        require '../views/user/contact_user.php';
         break;
 
+    case 'contact_admin':
+        require '../views/user/contact_admin.php';
+        break;
     case 'testimoni':
         require '../views/user/testimoni.php';
         break;

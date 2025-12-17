@@ -33,7 +33,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
       <a href="<?= $baseURL ?>index.php?page=home" class="text-gray-900 hover:text-pink-500 font-medium">Home</a>
       <a href="<?= $baseURL ?>index.php?page=about" class="text-gray-900 hover:text-pink-500 font-medium">About</a>
       <a href="<?= $baseURL ?>index.php?page=products" class="text-gray-900 hover:text-pink-500 font-medium">Product</a>
-      <a href="<?= $baseURL ?>index.php?page=contact" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
+      <a href="<?= $baseURL ?>index.php?page=contact_user" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
     </div>
 
     <!-- ========== ICON SEBELAH KANAN (LARGE SCREEN) ========== -->
@@ -63,7 +63,7 @@ $baseURL = "http://localhost/delina_beauty/public/";
     <a href="<?= $baseURL ?>index.php?page=home" class="block text-lg font-medium">Home</a>
     <a href="<?= $baseURL ?>index.php?page=about" class="block text-lg font-medium">About</a>
     <a href="<?= $baseURL ?>index.php?page=products" class="block text-lg font-medium">Product</a>
-    <a href="<?= $baseURL ?>index.php?page=contact" class="block text-lg font-medium">Contact</a>
+    <a href="<?= $baseURL ?>index.php?page=contact_user" class="block text-lg font-medium">Contact</a>
   </div>
 
   <div class="pt-4 border-t">
@@ -76,9 +76,9 @@ $baseURL = "http://localhost/delina_beauty/public/";
   style="background-image: url('../public/images/foto_header.jpg');">
 
   <!-- TEXT DALAM HEADER (BISA DI EDIT) -->
-  <div class="text-center text-white drop-shadow-xl">
-    <h1 class="text-3xl md:text-5xl font-bold">Glow Better with Glad2Glow</h1>
-    <p class="mt-4 text-lg md:text-xl">Wujudkan Kulit Cerah Impianmu</p>
+  <div class="text-center text-white relative z-10">
+    <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-[0_6px_18px_rgba(0,0,0,0.6)]">Glow Better with Glad2Glow</h1>
+    <p class="mt-4 text-lg md:text-xl font-medium drop-shadow-[0_6px_14px_rgba(0,0,0,0.6)]">Wujudkan Kulit Cerah Impianmu</p>
 
     <div class="mt-8">
       <a href="<?= $baseURL ?>index.php?page=products" class="px-6 py-3 bg-white text-gray-900 rounded-full font-semibold shadow">Temukan Sekarang →</a>

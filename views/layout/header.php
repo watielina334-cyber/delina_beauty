@@ -25,31 +25,12 @@ $baseURL= "/delina_beauty/public/";
                 <a href="<?= $baseURL ?>index.php?page=home" class="hover:text-pink-500"> Home </a>
                 <a href="<?= $baseURL ?>index.php?page=about" class="hover:text-pink-500"> About </a>
                 <a href="<?= $baseURL ?>index.php?page=products" class="hover:text-pink-500"> Product </a>
-                <a href="<?= $baseURL ?>index.php?page=contact" class="hover:text-pink-500"> Contact </a>
-
-
-                <?php if(isset($_SESSION['user_id'])):?>
-                    <!-- jika sudah login -->
-                    <a href="../views/user/cart.php">🛒</a>
-                    <a href="#">Logout</a>
-                <?php endif ;?>
+                <a href="<?= $baseURL ?>index.php?page=contact_user" class="hover:text-pink-500"> Contact </a>
             </nav>
             
 
             <!-- icon kanan -->
             <div class="flex items-center gap-4"> 
-
-                <!-- icon keranjang (muncul setelah login) -->
-                <?php if (isset($_SESSION['user'])): ?>
-                    <a href="<?= $baseURL ?>index.php?page=cart" class="text-gray-700 hover:text-pink-500">
-                    <a href="<?= $baseURL ?>index.php?page=cart"><img src="../public/images/cart.png" alt="keranjang" class="w-8 h-8"></a>
-                    </a> 
-                <?php endif; ?>
-
-                <!-- icon search -->
-                <button id="searchIcon" class="text-gray-700 hover:text-pink-500">
-                    <a href="<?= $baseURL ?>index.php?page=cart"><img src="../public/images/search.png" alt="search" class="w-8 h-8"></a>
-                </button>
             </div>
         </div> 
     </header>

@@ -24,24 +24,24 @@
             <div class="bg-white p-8 rounded-2xl shadow-lg">
                 <h2 class="text-2xl font-bold text-pink-500 mb-6">Kirim Pesan</h2>
 
-                <form action="#" method="POST" class="space-y-4">
+                <form action="index.php?page=contact_admin" method="POST" class="space-y-4">
 
                     <div>
                         <label class="block mb-1 text-gray-700">Nama Lengkap</label>
-                        <input type="text" class="w-full p-3 border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-400">
+                        <input type="text" name="name" class="w-full p-3 border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-400" required>
                     </div>
 
                     <div>
                         <label class="block mb-1 text-gray-700">Email</label>
-                        <input type="email" class="w-full p-3 border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-400">
+                        <input type="email" name="email" class="w-full p-3 border border-pink-200 rounded-lg focus:ring-2 focus:ring-pink-400" required>
                     </div>
 
                     <div>
                         <label class="block mb-1 text-gray-700">Pesan</label>
-                        <textarea class="w-full p-3 border border-pink-200 rounded-lg h-32 focus:ring-2 focus:ring-pink-400"></textarea>
+                        <textarea name="pesan" class="w-full p-3 border border-pink-200 rounded-lg h-32 focus:ring-2 focus:ring-pink-400" required></textarea>
                     </div>
 
-                    <button class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-semibold shadow">
+                    <button type="submit" class="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-lg font-semibold shadow">
                         Kirim Pesan
                     </button>
 
