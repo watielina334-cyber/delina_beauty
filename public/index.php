@@ -55,10 +55,6 @@ switch ($page) {
     case 'cart_add':
         require '../views/user/cart_add.php';
         exit;
-    
-    case 'user':
-        require '../models/User.php';
-        break;
 
     case 'logout':
         session_destroy();

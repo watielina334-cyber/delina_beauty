@@ -1,7 +1,4 @@
 <?php 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 $baseURL= "/delina_beauty/public/";
 ?>
 
@@ -26,12 +23,33 @@ $baseURL= "/delina_beauty/public/";
                 <a href="<?= $baseURL ?>index.php?page=about" class="hover:text-pink-500"> About </a>
                 <a href="<?= $baseURL ?>index.php?page=products" class="hover:text-pink-500"> Product </a>
                 <a href="<?= $baseURL ?>index.php?page=contact_user" class="hover:text-pink-500"> Contact </a>
-            </nav>
-            
 
-            <!-- icon kanan -->
-            <div class="flex items-center gap-4"> 
+                <!-- icon kanan -->
+            <div class="flex items-center gap-4">
+                <?php if(!isset($_SESSION['users'])): ?>
+                    <!--customer belom login  -->
+                    <a href="<?= $baseURL ?>index.php?page=login" class="font-semibold">Log In</a>
+                    <a href="<?= $baseURL ?>index.php?page=register" class="font-semibold">Sign Up</a>
+
+                    <?php else: ?>
+                        <!-- customer sudah login -->
+                        <div class="flex items-center gap-4">
+                            <!-- logo search -->
+                            <div class="flex items-center border rounded-full px-3 py-1">
+                                <img src="../public/images/search.png" alt="" class="w-4 h-4 mr-2">
+                                <input type="text" placeholder="Cari Produk Favorit Anda" class="outline-none text-sm w-36">
+                            </div>
+                            <!-- logo cart / keranjang -->
+                            <a href="<?= $baseURL ?>index.php?page=cart">
+                                <img src="../public/images/cart.png" alt="" class="w-5 h-5">
+                            </a>
+
+                            <!-- logout -->
+                            <a href="<?= $baseURL ?>index.php?page=logout" class="text-sm text-red-500">Logout</a>
+                        </div>
+                <?php endif ;?>
             </div>
+            </nav>
         </div> 
     </header>
 </body>

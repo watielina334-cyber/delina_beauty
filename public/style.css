@@ -1,7 +1,32 @@
-.search-wrapper {
-    position: relative;
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
-.search-wrapper input{
-    display: none;
-    position: absolute;
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border: 1px solid #f9a8d4;
+    border-radius: 999px;
+    background: white;
+}
+
+#search-input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 160px;
+}
+
+.icon-search,
+.icon-cart {
+    width: 22px !important;
+    height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
+    object-fit: contain;
+    display: block;
 }

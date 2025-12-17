@@ -26,7 +26,7 @@ if ($result->num_rows === 1) {
         $_SESSION['role'] = $users['role'];
 
         // Redirect ke halaman customer
-        header("Location: admin/dashboard.php");
+        header("Location: index.php?page=home");
         exit;
     } else {
         echo "Password salah";

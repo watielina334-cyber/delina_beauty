@@ -1,8 +1,4 @@
 <?php 
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 $baseURL = "http://localhost/delina_beauty/public/";
 ?>
 
@@ -35,19 +31,34 @@ $baseURL = "http://localhost/delina_beauty/public/";
       <a href="<?= $baseURL ?>index.php?page=products" class="text-gray-900 hover:text-pink-500 font-medium">Product</a>
       <a href="<?= $baseURL ?>index.php?page=contact_user" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
     </div>
-
+    <?php if (!isset($_SESSION['users'])): ?>
+    <!-- jika customer belom login -->
     <!-- ========== ICON SEBELAH KANAN (LARGE SCREEN) ========== -->
-    <div class="hidden lg:flex items-center space-x-4 -mr-4">
-      <a href="<?= $baseURL ?>index.php?page=register" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Sign In</a>
-      <a href="<?= $baseURL ?>index.php?page=login" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Log in</a>
-    </div>
-
+        <div class="hidden lg:flex items-center space-x-4 -mr-4">
+            <a href="<?= $baseURL ?>index.php?page=register" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Sign In</a>
+            <a href="<?= $baseURL ?>index.php?page=login" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Log in</a>
+        </div>
+    <?php else: ?>
+        <!-- menu jika customer sudah login -->
+        <div class="flex items-center gap-4">
+            <!-- logo search -->
+            <div class="flex items-center gap-2 px-3 py-1.5 border border-pink-300 rounded-full bg-white">
+                <img src="../public/images/search.png" alt="" class="w-4 h-4">
+                <input type="text" placeholder="Cari Produk Favoritmu" class="outline-none text-sm w-40">
+            </div>
+            <!-- logo cart/keranjang -->
+            <a href="<?= $baseURL ?>index.php?page=cart">
+                <img src="../public/images/cart.png" alt="" class="w-5 h-5">
+            </a>
+        </div>
+    <?php endif ;?>
     <!-- ========== BUTTON MOBILE (HAMBURGER) ========== -->
     <button id="mobileMenuOpen" class="lg:hidden p-2 text-gray-700">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
         <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
       </svg>
     </button>
+
 </nav>
 </header>
 
@@ -65,10 +76,10 @@ $baseURL = "http://localhost/delina_beauty/public/";
     <a href="<?= $baseURL ?>index.php?page=products" class="block text-lg font-medium">Product</a>
     <a href="<?= $baseURL ?>index.php?page=contact_user" class="block text-lg font-medium">Contact</a>
   </div>
-
-  <div class="pt-4 border-t">
-    <a href="<?= $baseURL ?>index.php?page=login" class="block text-lg font-semibold">Log in</a>
-  </div>
+<div class="pt-4 border-t">
+    <a href="<?= $baseURL ?>index.php?page=login" class="block text-lg font-semibold">Log In</a>
+    <a href="<?= $baseURL ?>index.php?page=register" class="block text-lg font-semibold">Sign Up</a>
+</div>
 </div>
 
 <!-- ========== HEADER WALLPAPER (GANTI GAMBAR DI BAGIAN URL) ========== -->
