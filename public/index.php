@@ -57,6 +57,9 @@ switch ($page) {
         require '../views/user/cart_add.php';
         exit;
 
+    case 'cekout':
+        require '../views/user/checkout.php';
+        exit;
     case 'logout':
         session_destroy();
         header("location: index.php?page=home");

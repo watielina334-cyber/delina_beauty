@@ -108,24 +108,28 @@ while ($row = $result->fetch_assoc()) {
     </style>
 </head>
 <script>
-    const checkAll = document.getElementById('checkAll');
+document.addEventListener('DOMContentLoaded', function () {
+
     const checks = document.querySelectorAll('.item-check');
     const totalHarga = document.getElementById('totalHarga');
 
     function updateTotal() {
         let total = 0;
-        checks.foreach(cb => {
+
+        checks.forEach(cb => {
             if (cb.checked) {
-                const price = parseInt(cb.dataset.price);
-                const qty = parseInt(cb.dataset.qty);
-                total += price * qty;
+                total += parseInt(cb.dataset.subtotal);
             }
         });
-        totalEl.textContent = total.tolocaleString('id-ID');
+
+        totalHarga.textContent = total.toLocaleString('id-ID');
     }
-    checks.foreach(cb => {
+
+    checks.forEach(cb => {
         cb.addEventListener('change', updateTotal);
     });
+
+});
 </script>
 <body>
 <form action="index.php?page=checkout" method="POST" id="cartFrom"></form>
@@ -157,7 +161,6 @@ while ($row = $result->fetch_assoc()) {
                 <td class="product">
                     <input type="checkbox" name="cart_ids[]" value="<?= $item['cart_id']; ?>"
                     class="item-check" data-subtotal="<?= $subtotal; ?>">
-                    <?= $item['name']; ?>
                 </td>
                 <td class="product">
                     <img src="../public/images/<?= $item['image']; ?>">
@@ -179,7 +182,7 @@ while ($row = $result->fetch_assoc()) {
             <a href="index.php?page=cart_delete&id=<?= $item['cart_id']; ?>"
             onclick="return confirm('hapus produk ini?')" style="color:red; font-size:18px; text-decoration:none;">🗑️</a>
         </td>
-        <a href="index.php?page=checkout" class="btn">
+        <a href="index.php?page=cekout" class="btn">
             Checkout
         </a>
 
