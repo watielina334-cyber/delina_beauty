@@ -112,25 +112,23 @@ while ($row = $result->fetch_assoc()) {
     const checks = document.querySelectorAll('.item-check');
     const totalHarga = document.getElementById('totalHarga');
 
-    function hitungTotal() {
+    function updateTotal() {
         let total = 0;
         checks.foreach(cb => {
             if (cb.checked) {
-                total += parseInt(cb.dataset.subtotal);
+                const price = parseInt(cb.dataset.price);
+                const qty = parseInt(cb.dataset.qty);
+                total += price * qty;
             }
         });
-        totalHarga.innerText = total.tolocaleString('id-ID');
+        totalEl.textContent = total.tolocaleString('id-ID');
     }
-    checkAll.addEventListener('change', () => {
-        checks.foreach(cb => cb.checked = checkAll.checked);
-        hitungTotal();
-    });
     checks.foreach(cb => {
-        cb.addEventListener('change', hitungTotal);
+        cb.addEventListener('change', updateTotal);
     });
 </script>
 <body>
-<form action="index.php?page=checkout" method="POST"></form>
+<form action="index.php?page=checkout" method="POST" id="cartFrom"></form>
     <div class="container">
         <h2>🛒 Keranjang Belanja</h2>
 
@@ -146,6 +144,7 @@ while ($row = $result->fetch_assoc()) {
                 <th>Harga</th>
                 <th>Jumlah</th>
                 <th>Subtotal</th>
+                <th>Aksi</th>
             </tr>
 
             <?php
@@ -172,12 +171,14 @@ while ($row = $result->fetch_assoc()) {
         </table>
 
         <div class="total">
-            Total: Rp <?= number_format($total); ?>
+            Total: Rp <span id="totalPrice">0</span>
         </div>
-        <!-- <button type="submit" class="btn">
-            Checkout Produk Terpilih
-        </button> -->
-
+        
+        <!-- icon hapus -->
+        <td>
+            <a href="index.php?page=cart_delete&id=<?= $item['cart_id']; ?>"
+            onclick="return confirm('hapus produk ini?')" style="color:red; font-size:18px; text-decoration:none;">🗑️</a>
+        </td>
         <a href="index.php?page=checkout" class="btn">
             Checkout
         </a>
