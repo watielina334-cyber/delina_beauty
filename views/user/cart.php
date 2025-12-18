@@ -12,6 +12,7 @@ $user_id = $_SESSION['user_id'];
 // ambil cart dari database
 $stmt = $conn->prepare("
     SELECT 
+        carts.cart_id,
         carts.quantity AS qty,
         products.name,
         products.price,
@@ -106,53 +107,82 @@ while ($row = $result->fetch_assoc()) {
         }
     </style>
 </head>
+<script>
+    const checkAll = document.getElementById('checkAll');
+    const checks = document.querySelectorAll('.item-check');
+    const totalHarga = document.getElementById('totalHarga');
+
+    function hitungTotal() {
+        let total = 0;
+        checks.foreach(cb => {
+            if (cb.checked) {
+                total += parseInt(cb.dataset.subtotal);
+            }
+        });
+        totalHarga.innerText = total.tolocaleString('id-ID');
+    }
+    checkAll.addEventListener('change', () => {
+        checks.foreach(cb => cb.checked = checkAll.checked);
+        hitungTotal();
+    });
+    checks.foreach(cb => {
+        cb.addEventListener('change', hitungTotal);
+    });
+</script>
 <body>
+<form action="index.php?page=checkout" method="POST"></form>
+    <div class="container">
+        <h2>🛒 Keranjang Belanja</h2>
 
-<div class="container">
-    <h2>🛒 Keranjang Belanja</h2>
+        <?php if (empty($cart)): ?>
+            <div class="empty">
+                Keranjang masih kosong
+            </div>
+        <?php else: ?>
 
-    <?php if (empty($cart)): ?>
-        <div class="empty">
-            Keranjang masih kosong
+        <table>
+            <tr>
+                <th>Produk</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Subtotal</th>
+            </tr>
+
+            <?php
+            $total = 0;
+            foreach ($cart as $item):
+                $subtotal = $item['price'] * $item['qty'];
+                $total += $subtotal;
+            ?>
+            <tr>
+                <td class="product">
+                    <input type="checkbox" name="cart_ids[]" value="<?= $item['cart_id']; ?>"
+                    class="item-check" data-subtotal="<?= $subtotal; ?>">
+                    <?= $item['name']; ?>
+                </td>
+                <td class="product">
+                    <img src="../public/images/<?= $item['image']; ?>">
+                    <?= $item['name']; ?>
+                </td>
+                <td>Rp <?= number_format($item['price']); ?></td>
+                <td><?= $item['qty']; ?></td>
+                <td>Rp <?= number_format($subtotal); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <div class="total">
+            Total: Rp <?= number_format($total); ?>
         </div>
-    <?php else: ?>
+        <!-- <button type="submit" class="btn">
+            Checkout Produk Terpilih
+        </button> -->
 
-    <table>
-        <tr>
-            <th>Produk</th>
-            <th>Harga</th>
-            <th>Jumlah</th>
-            <th>Subtotal</th>
-        </tr>
+        <a href="index.php?page=checkout" class="btn">
+            Checkout
+        </a>
 
-        <?php
-        $total = 0;
-        foreach ($cart as $item):
-            $subtotal = $item['price'] * $item['qty'];
-            $total += $subtotal;
-        ?>
-        <tr>
-            <td class="product">
-                <img src="../public/images/<?= $item['image']; ?>">
-                <?= $item['name']; ?>
-            </td>
-            <td>Rp <?= number_format($item['price']); ?></td>
-            <td><?= $item['qty']; ?></td>
-            <td>Rp <?= number_format($subtotal); ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-
-    <div class="total">
-        Total: Rp <?= number_format($total); ?>
+        <?php endif; ?>
     </div>
-
-    <a href="index.php?page=checkout" class="btn">
-        Checkout
-    </a>
-
-    <?php endif; ?>
-</div>
-
 </body>
 </html>
