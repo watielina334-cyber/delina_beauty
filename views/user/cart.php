@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <a href="index.php?page=cart_delete&id=<?= $item['cart_id']; ?>"
             onclick="return confirm('hapus produk ini?')" style="color:red; font-size:18px; text-decoration:none;">🗑️</a>
         </td>
-        <a href="index.php?page=cekout" class="btn">
+        <a href="index.php?page=cekout&id=<?= $products['id'] ?>" class="btn">
             Checkout
         </a>
 

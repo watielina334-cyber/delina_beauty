@@ -60,6 +60,10 @@ switch ($page) {
     case 'cekout':
         require '../views/user/checkout.php';
         exit;
+
+    case 'cekout_proses':
+        require '../views/user/checkout_proses.php';
+        exit;
     case 'logout':
         session_destroy();
         header("location: index.php?page=home");

@@ -25,7 +25,7 @@ $total = $subtotal + $ongkir;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
 </head>
 <style>
     body {
@@ -103,17 +103,17 @@ $total = $subtotal + $ongkir;
                 <option value="">---Pilih Metode--</option>
                 <option value="COD">COD</option>
                 <option value="Transfer bank">Transfer Bank</option>
-                <div id="bankWrapper" style="display: none; margin-top: 15px;">
-                    <label>Pilih Bank</label>
-                    <select name="bank">
-                        <option value="">--Pilih Bank --</option>
-                        <option value="BRI"></option>
-                        <option value="BCA"></option>
-                        <option value="Mandiri"></option>
-                        <option value="Seabank"></option>
-                    </select>
-                </div>
             </select>
+            <div id="bankWrapper" style="display: none; margin-top: 15px;">
+                <label>Pilih Bank</label>
+                <select name="bank">
+                    <option value="">--Pilih Bank --</option>
+                    <option value="BRI"></option>
+                    <option value="BCA"></option>
+                    <option value="Mandiri"></option>
+                    <option value="Seabank"></option>
+                </select>
+            </div>
         </div>
         <!-- format ringkasan -->
         <div class="section">
@@ -123,10 +123,16 @@ $total = $subtotal + $ongkir;
             <div class="total">Total: Rp <?= number_format($total); ?></div>
         </div>
 
-        <form action="#">
+        <form action="index.php?page=cekout_proses.php">
             <input type="hidden" name="total" value="<?= $total ?>">
             <button class="btn">Buat Pesanan</button>
         </form>
     </div>
 </body>
+<script>
+    function toggleBank(value) {
+        const bank = document.getElementById('bankWrapper');
+        bank.style.display = value === 'TRANSFER' ? 'block': 'none';
+    }
+</script>
 </html>

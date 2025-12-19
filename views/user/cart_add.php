@@ -44,7 +44,7 @@ if ($action === 'cart') {
         'id' => $id,
         'quantity' => $quantity
     ];
-    header("Location: index.php?page=checkout");
+    header("Location: index.php?page=cekout");
     exit;
 }
 ?>
