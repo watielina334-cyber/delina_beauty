@@ -22,11 +22,15 @@ if ($result->num_rows === 1) {
     if (password_verify($password, $users['password'])) {
         // Login berhasil, simpan session
         $_SESSION['user_id'] = $users['user_id'];
+        $_SESSION['email'] = $users['email'];
         $_SESSION['name'] = $users['name'];
         $_SESSION['role'] = $users['role'];
 
-        // Redirect ke halaman customer
-        header("Location: index.php?page=home");
+        if ($users['role'] === 'admin') {
+            header("location: index.php?page=admin");
+        } else {
+            header("Location: index.php?page=home");
+        }
         exit;
     } else {
         echo "Password salah";

@@ -76,7 +76,7 @@ switch ($page) {
         break;
         
     case 'admin-produk':
-        require '../views/admin/product_list.php';
+        require '../views/admin/.php';
         break;
         
     case 'admin-produk-edit':

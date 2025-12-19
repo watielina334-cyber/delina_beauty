@@ -1,68 +1,62 @@
-<?php
-require_once '../config/database.php';
+<?php 
+require __DIR__ . '/../../config/database.php';
+require __DIR__ . '/../auth/admin_guard.php';
 
-// cek login
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header ("location: index.php?page=login");
-    exit;
-
-$totalOrder = $conn -> query("SELECT COUNT(*) AS total FROM orders") -> fetch_assoc()['total'];
-
-// pesanan hari ini
-$todayOrder = $conn -> query("
-SELECT COUNT(*) AS total FROM orders WHERE DATE (created_at) = CURDATE()") -> fetch_assoc()['total'];
-
-// total pendapatan
-$totalIncome = $conn->query("
-SELECT SUM(total_price) AS total FROM orders") -> fetch_assoc()['total'];
-
-// pesanan pending
-$pending = $conn->query("
-SELECT orders.order_id, users.name, orders.total_price ORDER BY orders.created_at DESC LIMIT 5");
-
-}
+// data dashboard
+$totalProduk = $conn->query("SELECT COUNT(*) total FROM products") -> fetch_assoc()['total'];
+$totalOrder = $conn->query("SELECT COUNT(*) total FROM orders") -> fetch_assoc()['total'];
+$totalUser = $conn->query("SELECT COUNT(*) total FROM users WHERE role='customer'") -> fetch_assoc()['total'];
+$totalUang = $conn->query("SELECT SUM(total_harga) total FROM orders WHERE status='selesai'") -> fetch_assoc()['total'] ?? 0;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/delina_beauty/public/style.css">
 </head>
 <body>
-    <div class="cards">
-        <div class="card">
-            <h3>Total Pemesanan</h3>
-            <p><?= $totalOrder ?></p>
+    <div class="wrapper">
+        <!-- side bar -->
+        <div class="sidebar">
+            <h2>Admin Panel</h2>
+            <a href="index.php?page=admin">Dashboard</a>
+            <a href="#">Produk</a>
+            <a href="#">Pesanan</a>
+            <a href="#">Customer</a>
+            <a href="#">Logout</a>
         </div>
-        <div class="card">
-            <h3>Pesanan Hari Ini</h3>
-            <p><?= $todayOrder ?></p>
-        </div>
-        <div class="card">
-            <h3>Pendapatan</h3>
-            <p><?= number_format($totalIncome) ?></p>
-        </div>
-        <div class="card">
-            <h3>Menuggu</h3>
-            <p><?= $pending ?></p>
+
+        <!-- content -->
+        <div class="content">
+            <h1>Dashboard</h1>
+            <p>Selamat Datang, 
+                <b><?= $_SESSION['name'] ?? $_SESSION['email'] ?? 'admin'; ?><b>
+            </p>
+            <div class="cards">
+                <div class="card blue">
+                    <h3>Total Produk</h3>
+                    <p><?= $totalProduk ?></p>
+                </div>
+
+                <div class="card green">
+                    <h3>Total Pesanan</h3>
+                    <p><?= $totalOrder ?></p>
+                </div>
+
+                <div class="card orange">
+                    <h3>Total Customer</h3>
+                    <p><?= $totalUser ?></p>
+                </div>
+
+                <div class="card red">
+                    <h3>Total Pendapatan</h3>
+                    <p>Rp <?= number_format($totalUang) ?></p>
+                </div>
+            </div>
         </div>
     </div>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Customer</th>
-            <th>Total</th>
-            <th>Status</th>
-        </tr>
-
-        <?php while ($row = $orders -> fetch_assoc()): ?>
-            <tr>
-                <td><?= ($row['order_id']) ?></td>
-                <td><?= $row['name'] ?></td>
-                <td>Rp <?= number_format($row['total_price']) ?></td>
-                <td><?= ucfirst(($row['status'])) ?></td>
-            </tr>
-        <?php endwhile; ?>
-    </table>
 </body>
 </html>
