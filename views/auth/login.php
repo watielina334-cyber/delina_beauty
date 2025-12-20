@@ -22,6 +22,16 @@ button {
     background: blue;
     color: white;
 }
+.register {
+    text-align: center;
+    margin-top: 15px;
+}
+.register a{
+    color: #ff4f9a;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 </style>
 </head>
 <body>
@@ -33,7 +43,9 @@ button {
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit" name="login">Login</button>
     </form>
-    <p><a href="index.php?page=register"></a>Belum Punya Akun? Register</p>
+    <div class="register">Belum Punya Akun?
+        <a href="index.php?page=register"> Register</a>
+    </div>
 </div>
 
 </body>

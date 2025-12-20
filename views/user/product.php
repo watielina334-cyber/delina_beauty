@@ -26,55 +26,46 @@ $result = $stmt->get_result();
     <title>My Product</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+<style>
+    .category-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: #fff5f8;
+        border-top: 1px solid #eee;
+        border-bottom: 5px solid #eee;
+    }
+    .category-bar {
+        display: flex;
+        gap: 35px;
+        padding: 12px 0;
+    }
+    .category-bar a{
+        text-decoration: none;
+        font-weight: 600;
+        color: #1f2937;
+    }
+    .category-bar a:hover{
+        color: #ec4899;
+    }
+</style>
 
 <body class="bg-gray-100 p-6">
 
     <!-- CATEGORY BAR -->
-    <div class="w-full bg-pink-50 border-t border-b">
-        <div class="max-w-6xl mx-auto px-4">
-            <ul class="flex gap-8 py-3 text-xl font-medium text-gray-700 overflow-x-autom justify-center">
-                <li>
-                    <a href="index.php?page=products&kategori_id=4"
-                        class="hover:text-pink-500">
-                        Facial Wash
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=products&kategori_id=2"
-                        class="hover:text-pink-500">
-                        Toner
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=products&kategori_id=1"
-                        class="hover:text-pink-500">
-                        Serum
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=products&kategori_id=3"
-                        class="hover:text-pink-500">
-                        Moisturizer
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=products&kategori_id=5"
-                        class="hover:text-pink-500">
-                        Sunscreen
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php?page=products&kategori_id=6"
-                        class="hover:text-pink-500">
-                        Mask 
-                    </a>
-                </li>
-            </ul>
-        </div>
+    <div class="category-wrapper">
+        <nav class="category-bar">
+            <a href="#">Facial Wash</a>
+            <a href="#">Toner</a>
+            <a href="#">Serum</a>
+            <a href="#">Moisturizer</a>
+            <a href="#">Sunscreen</a>
+            <a href="#">Mask</a>
+        </nav>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <?php while ($p = $result -> fetch_assoc()): ?>
+        <?php while ($p = $result->fetch_assoc()): ?>
 
             <div class="bg-white p-4 rounded-xl shadow hover:shadow-lg transition">
 
@@ -105,4 +96,5 @@ $result = $stmt->get_result();
     </div>
 
 </body>
+
 </html>
