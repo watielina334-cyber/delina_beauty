@@ -8,6 +8,8 @@ $baseURL = "http://localhost/delina_beauty/public/";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glad2Glow</title>
+    <link rel="stylesheet" href="../public/main.js">
+    <link rel="stylesheet" href="../public/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
@@ -52,12 +54,31 @@ $baseURL = "http://localhost/delina_beauty/public/";
             </a>
         </div>
     <?php endif ;?>
-    <!-- ========== BUTTON MOBILE (HAMBURGER) ========== -->
-    <button id="mobileMenuOpen" class="lg:hidden p-2 text-gray-700">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
-      </svg>
-    </button>
+
+    <!-- SIDE BAR DI KANAN  -->
+    <button id="openSidebar" class="burger"><img src="../public/images/menu-burger.png" alt=""></button>
+    <div id="overlay">
+        <aside id="sidebar">
+            <div class="sidebar-content">
+                <nav class="menu">
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Products</a>
+                    <a href="#">Contact</a>
+                </nav>
+
+                <!-- FOOTER (LOGIN/LOGOUT) -->
+                <div class="sidebar-footer">
+                    <?php if(!isset($_SESSION['iser_id'])): ?>
+                        <a href="index.php?page=login" class="btn">Login</a>
+                        <a href="index.php?page=register" class="btn outline">Sign In</a>
+                    <?php else: ?>
+                        <a href="#" class="btn danger">Logout</a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </aside>
+    </div>
 
 </nav>
 </header>
