@@ -33,7 +33,7 @@ button {
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit" name="login">Login</button>
     </form>
-    <p><a href="register.php"></a>Belum Punya Akun? Register</p>
+    <p><a href="index.php?page=register"></a>Belum Punya Akun? Register</p>
 </div>
 
 </body>
