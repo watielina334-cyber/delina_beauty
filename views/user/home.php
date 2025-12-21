@@ -5,129 +5,111 @@ $baseURL = "http://localhost/delina_beauty/public/";
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glad2Glow</title>
-    <link rel="stylesheet" href="../public/main.js">
-    <link rel="stylesheet" href="../public/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glad2Glow</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-    <!-- ================= HEADER SECTION (NAVBAR + WALLPAPER) ================= -->
-<!-- Kamu bisa ganti URL wallpaper di bagian style="background-image" -->
+<body class="bg-white">
 
-<header class="fixed inset-x-0 top-0 z-50 bg-white shadow">
-  <!-- NAVBAR -->
-  <nav class="flex items-center justify-between h-16 px-4 lg:px-10">
+<!-- ================= HEADER ================= -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white shadow">
+  <nav class="flex items-center justify-between h-16 px-4 lg:px-10 ">
 
-    <!-- ========== LOGO WEBSITE ========== -->
-    <a href="#" class="flex items-center">
-      <img src="../public/images/logo_delina.png" alt="Logo" class="h-20 w-auto">
+    <!-- LOGO -->
+    <a href="<?= $baseURL ?>index.php?page=home">
+      <img src="../public/images/logo_delina.png" class="h-16">
     </a>
 
-    <!-- ========== NAVBAR MENU (LARGE SCREEN) ========== -->
-    <div class="hidden lg:flex lg:space-x-20">
-      <a href="<?= $baseURL ?>index.php?page=home" class="text-gray-900 hover:text-pink-500 font-medium">Home</a>
-      <a href="<?= $baseURL ?>index.php?page=about" class="text-gray-900 hover:text-pink-500 font-medium">About</a>
-      <a href="<?= $baseURL ?>index.php?page=products" class="text-gray-900 hover:text-pink-500 font-medium">Product</a>
-      <a href="<?= $baseURL ?>index.php?page=contact_user" class="text-gray-900 hover:text-pink-500 font-medium">Contact</a>
+    <!-- MENU DESKTOP -->
+    <div class="hidden lg:flex gap-16">
+      <a href="<?= $baseURL ?>index.php?page=home" class="hover:bg-pink-500 px-4 py-2 rounded-full hover:text-white transition">Home</a>
+      <a href="<?= $baseURL ?>index.php?page=about" class="hover:bg-pink-500 px-4 py-2 rounded-full hover:text-white transition">About</a>
+      <a href="<?= $baseURL ?>index.php?page=products" class="hover:bg-pink-500 px-4 py-2 rounded-full hover:text-white transition">Product</a>
+      <a href="<?= $baseURL ?>index.php?page=contact_user" class="hover:bg-pink-500 px-4 py-2 rounded-full hover:text-white transition">Contact</a>
     </div>
-    <?php if (!isset($_SESSION['user_id'])): ?>
-    <!-- jika customer belom login -->
-    <!-- ========== ICON SEBELAH KANAN (LARGE SCREEN) ========== -->
-        <div class="hidden lg:flex items-center space-x-4 -mr-4">
-            <a href="<?= $baseURL ?>index.php?page=register" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Sign In</a>
-            <a href="<?= $baseURL ?>index.php?page=login" class="text-sm font-semibold text-gray-900 hover:text-pink-500">Log in</a>
-        </div>
+
+    <!-- RIGHT DESKTOP -->
+    <?php if(!isset($_SESSION['user_id'])): ?>
+      <div class="hidden lg:flex gap-4">
+        <a href="<?= $baseURL ?>index.php?page=login">Login</a>
+        <a href="<?= $baseURL ?>index.php?page=register">Sign Up</a>
+      </div>
     <?php else: ?>
-        <!-- menu jika customer sudah login -->
-        <div class="flex items-center gap-4">
-            <!-- logo search -->
-            <div class="flex items-center gap-2 px-3 py-1.5 border border-pink-300 rounded-full bg-white">
-                <img src="../public/images/search.png" alt="" class="w-4 h-4">
-                <input type="text" placeholder="Cari Produk Favoritmu" class="outline-none text-sm w-40">
-            </div>
-            <!-- logo cart/keranjang -->
-            <a href="<?= $baseURL ?>index.php?page=cart">
-                <img src="../public/images/cart.png" alt="" class="w-5 h-5">
-            </a>
-        </div>
-    <?php endif ;?>
+      <div class="hidden lg:flex gap-4 items-center">
+        <a href="<?= $baseURL ?>index.php?page=cart">
+          <img src="../public/images/cart.png" class="w-5">
+        </a>
+        <a href="<?= $baseURL ?>index.php?page=logout" class="text-red-500">Logout</a>
+      </div>
+    <?php endif; ?>
 
-    <!-- SIDE BAR DI KANAN  -->
-    <button id="openSidebar" class="burger"><img src="../public/images/menu-burger.png" alt=""></button>
-    <div id="overlay">
-        <aside id="sidebar">
-            <div class="sidebar-content">
-                <nav class="menu">
-                    <a href="#">Home</a>
-                    <a href="#">About</a>
-                    <a href="#">Products</a>
-                    <a href="#">Contact</a>
-                </nav>
+    <!-- HAMBURGER (MOBILE) -->
+    <button id="mobileMenuOpen" class="lg:hidden">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/>
+      </svg>
+    </button>
 
-                <!-- FOOTER (LOGIN/LOGOUT) -->
-                <div class="sidebar-footer">
-                    <?php if(!isset($_SESSION['iser_id'])): ?>
-                        <a href="index.php?page=login" class="btn">Login</a>
-                        <a href="index.php?page=register" class="btn outline">Sign In</a>
-                    <?php else: ?>
-                        <a href="#" class="btn danger">Logout</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </aside>
-    </div>
-
-</nav>
+  </nav>
 </header>
 
-<!-- ========== MOBILE MENU (MUNCUL DI LAYAR KECIL) ========== -->
-<div id="mobileMenu" class="fixed inset-0 z-40 bg-white hidden p-6 space-y-6">
-  <button id="mobileMenuClose" class="p-2 text-gray-700">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-6 h-6">
-      <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" />
-    </svg>
+<!-- ================= MOBILE MENU ================= -->
+<div id="mobileMenu" class="fixed inset-0 bg-white z-50 hidden p-6">
+
+  <button id="mobileMenuClose" class="mb-6">
+    ✕
   </button>
 
-  <div class="space-y-4">
-    <a href="<?= $baseURL ?>index.php?page=home" class="block text-lg font-medium">Home</a>
-    <a href="<?= $baseURL ?>index.php?page=about" class="block text-lg font-medium">About</a>
-    <a href="<?= $baseURL ?>index.php?page=products" class="block text-lg font-medium">Product</a>
-    <a href="<?= $baseURL ?>index.php?page=contact_user" class="block text-lg font-medium">Contact</a>
+  <div class="space-y-4 text-lg">
+    <a href="<?= $baseURL ?>index.php?page=home">Home</a>
+    <a href="<?= $baseURL ?>index.php?page=about">About</a>
+    <a href="<?= $baseURL ?>index.php?page=products">Product</a>
+    <a href="<?= $baseURL ?>index.php?page=contact_user">Contact</a>
   </div>
-<div class="pt-4 border-t">
-    <a href="<?= $baseURL ?>index.php?page=login" class="block text-lg font-semibold">Log In</a>
-    <a href="<?= $baseURL ?>index.php?page=register" class="block text-lg font-semibold">Sign Up</a>
+
+  <div class="mt-6 border-t pt-4">
+    <?php if(!isset($_SESSION['user_id'])): ?>
+      <a href="<?= $baseURL ?>index.php?page=login" class="block">Login</a>
+      <a href="<?= $baseURL ?>index.php?page=register" class="block">Sign Up</a>
+    <?php else: ?>
+      <a href="<?= $baseURL ?>index.php?page=logout" class="block text-red-500">Logout</a>
+    <?php endif; ?>
+  </div>
+
 </div>
-</div>
 
-<!-- ========== HEADER WALLPAPER (GANTI GAMBAR DI BAGIAN URL) ========== -->
-<div class="mt-10 h-[400px] md:h-[400px] lg:h-[500px] bg-cover bg-center flex items-center justify-center"
-  style="background-image: url('../public/images/foto_header.jpg');">
-
-  <!-- TEXT DALAM HEADER (BISA DI EDIT) -->
-  <div class="text-center text-white relative z-10">
-    <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-[0_6px_18px_rgba(0,0,0,0.6)]">Glow Better with Glad2Glow</h1>
-    <p class="mt-4 text-lg md:text-xl font-medium drop-shadow-[0_6px_14px_rgba(0,0,0,0.6)]">Wujudkan Kulit Cerah Impianmu</p>
-
+<!-- ================= HERO ================= -->
+<div class="mt-16 h-[450px] bg-cover bg-center flex items-center justify-center"
+     style="background-image:url('../public/images/foto_header.jpg')">
+  <div class="text-white text-center">
+    <h1 class="text-4xl md:text-6xl font-bold">Glow Better with Glad2Glow</h1>
+    <p class="mt-5">Wujudkan Kulit Cerah Impianmu</p>
     <div class="mt-8">
-      <a href="<?= $baseURL ?>index.php?page=products" class="px-6 py-3 bg-white text-gray-900 rounded-full font-semibold shadow">Temukan Sekarang →</a>
-    </div>
-  </div>
+        <a href="<?= $baseURL ?>index.php?page=products"
+        class="inline-block px-8 py-3 bg-white text-gray-900 font-semibold rounded-full
+        hover:bg-pink-500 hover:text-white transition">
+        Temukan Sekarang →
+    </a>
+</div>
+</div>
 </div>
 
-<!-- ========== SCRIPT UNTUK MOBILE MENU ========== -->
+<!-- ================= SCRIPT ================= -->
 <script>
-  const mobileOpen = document.getElementById('mobileMenuOpen');
-  const mobileClose = document.getElementById('mobileMenuClose');
-  const mobileMenu = document.getElementById('mobileMenu');
+document.addEventListener("DOMContentLoaded", () => {
+  const open = document.getElementById("mobileMenuOpen");
+  const close = document.getElementById("mobileMenuClose");
+  const menu = document.getElementById("mobileMenu");
 
-  mobileOpen.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
-  mobileClose.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  open.onclick = () => menu.classList.remove("hidden");
+  close.onclick = () => menu.classList.add("hidden");
+});
 </script>
 
+</body>
+</html>
         <!-- LIST BEST PRODUCT -->
         <div class="mt-20">
             <h1 class="text-5xl font-light text-pink-400 tracking-wide drop-shadow-sm">🌸 Best Product 🌸</h1>
@@ -273,18 +255,5 @@ $baseURL = "http://localhost/delina_beauty/public/";
             © 2025 Delina Beauty — Glow with Confidence ✨
         </div>
     </footer>
-
-
-
-    <!-- SCRIPT DARI JAVASCRIPT -->
-
-    <script>
-        const toggle = document.getElementById('searchToggle');
-        const box = document.getElementById('searchBox');
-
-        toggle.addEventListener('click', () => {
-            box.classlist.toggle('hidden');
-        });
-    </script>
 </body>
 </html>

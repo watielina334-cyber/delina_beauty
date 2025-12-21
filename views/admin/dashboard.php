@@ -7,6 +7,8 @@ $totalProduk = $conn->query("SELECT COUNT(*) total FROM products") -> fetch_asso
 $totalOrder = $conn->query("SELECT COUNT(*) total FROM orders") -> fetch_assoc()['total'];
 $totalUser = $conn->query("SELECT COUNT(*) total FROM users WHERE role='customer'") -> fetch_assoc()['total'];
 $totalUang = $conn->query("SELECT SUM(total_harga) total FROM orders WHERE status='selesai'") -> fetch_assoc()['total'] ?? 0;
+
+
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +55,11 @@ $totalUang = $conn->query("SELECT SUM(total_harga) total FROM orders WHERE statu
 
                 <div class="card red">
                     <h3>Total Pendapatan</h3>
+                    <p>Rp <?= number_format($totalUang) ?></p>
+                </div>
+
+                <div class="card gray">
+                    <h3>Produk Terlaris</h3>
                     <p>Rp <?= number_format($totalUang) ?></p>
                 </div>
             </div>
